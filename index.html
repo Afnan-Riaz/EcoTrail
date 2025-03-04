@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EcoTrail - Dashboard</title>
+    <link rel="stylesheet" href="output.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="/script.js"></script>
+  </head>
+  <body class="bg-[#FAFBFC]">
+    <header>
+      <nav
+        class="bg-white shadow-md px-4 xl:px-32 py-4 flex justify-between items-center gap-2 relative"
+      >
+        <!-- Logo -->
+        <div>
+          <img src="/assets/icons/logo.svg" alt="Logo" class="h-16 sm:h-24 min-w-12 sm:min-w-20" />
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="flex items-center gap-4 sm:gap-10">
+          <ul class="hidden lg:flex space-x-12 text-green-700 text-xl">
+            <li><a href="#" class="hover:text-primary">Home</a></li>
+            <li><a href="#" class="hover:text-primary">About us</a></li>
+            <!-- Schools Dropdown -->
+            <li class="relative group">
+              <button class="flex items-center hover:text-primary">
+                Schools
+                <span class="ml-1"
+                  ><img src="/assets/icons/cheveron.svg" alt="arrow"
+                /></span>
+              </button>
+              <ul
+                class="absolute hidden group-hover:block bg-white shadow-lg py-2 w-max rounded-lg border"
+              >
+                <li>
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-100"
+                    >For Schools</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-100"
+                    >For Authorities</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <!-- Services Dropdown -->
+            <li class="relative group">
+              <button class="flex items-center hover:text-primary">
+                Services
+                <span class="ml-1"
+                  ><img src="/assets/icons/cheveron.svg" alt="arrow"
+                /></span>
+              </button>
+              <ul
+                class="absolute hidden group-hover:block bg-white shadow-lg py-2 w-max rounded-lg border"
+              >
+                <li>
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-100"
+                    >Education Workshops</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-100">News</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <!-- Buttons -->
+          <div class="flex space-x-2 sm:space-x-4">
+            <button class="bg-primary text-white px-3 sm:px-6 py-2 text-sm sm:text-lg rounded-xl">
+              Dashboard
+            </button>
+            <button class="border border-black px-3 sm:px-6 py-2 text-sm sm:text-lg rounded-xl">
+              Logout
+            </button>
+          </div>
+          <button id="side-menu-toggle" class="lg:hidden">
+            <img
+              src="/assets/icons/hamburger.svg"
+              alt="menu"
+              class="h-6 min-w-6"
+            />
+          </button>
+        </div>
+        <div
+          id="side-menu"
+          class="absolute right-0 top-full h-fit bg-white transition-all max-w-0 w-4/5 shadow-lg overflow-x-hidden overflow-y-auto"
+        >
+          <ul class="flex flex-col gap-4 py-4 px-6">
+            <li><a href="#" class="hover:text-primary">Home</a></li>
+            <li><a href="#" class="hover:text-primary">About us</a></li>
+            <li>
+              <div class="dropdown-toggle flex items-center">
+                <p class="hover:text-primary">Schools</p>
+                <img src="/assets/icons/cheveron.svg" alt="arrow" />
+              </div>
+              <div class="dropdown max-h-0 overflow-hidden transition-all">
+                <ul class="space-y-2 mt-2 ml-2">
+                  <li>
+                    <a href="#" class="hover:text-primary">For Schools</a>
+                  </li>
+                  <li>
+                    <a href="#" class="hover:text-primary">For Authorities</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div class="dropdown-toggle flex items-center">
+                <p class="hover:text-primary">Schools</p>
+                <img src="/assets/icons/cheveron.svg" alt="arrow" />
+              </div>
+              <div class="dropdown max-h-0 overflow-hidden transition-all">
+                <ul class="space-y-2 mt-2 ml-2">
+                  <li>
+                    <a href="#" class="hover:text-primary">For Schools</a>
+                  </li>
+                  <li>
+                    <a href="#" class="hover:text-primary">For Authorities</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main class="px-2 sm:px-4 xl:px-32 py-16">
+      <div class="flex flex-col md:flex-row justify-between items-start gap-4 lg:gap-16">
+        <div class="flex flex-col gap-6 w-full md:w-2/5 rounded-xl bg-white p-6">
+          <h4 class="text-xl font-semibold">6M Comparison</h4>
+          <div>
+            <canvas id="sixMComparisonChart" class="w-full h-64"></canvas>
+          </div>
+          <div class="flex justify-between w-full lg:w-3/5 gap-6 pl-4">
+            <div><img src="/assets/icons/electric.svg" alt="electric" /></div>
+            <div class="flex-1 flex justify-between items-center">
+              <div>
+                <p class="font-medium">Electric</p>
+                <p class="font-light text-sm text-neutral-500">2024</p>
+              </div>
+              <p class="text-primary">8843</p>
+            </div>
+          </div>
+          <div class="flex justify-between w-full lg:w-3/5 gap-6 pl-4">
+            <div><img src="/assets/icons/gas.svg" alt="electric" /></div>
+            <div class="flex-1 flex justify-between items-center">
+              <div>
+                <p class="font-medium">Gas</p>
+                <p class="font-light text-sm text-neutral-500">2024</p>
+              </div>
+              <p class="text-accent">12367</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-10">
+            <p class="text-xl font-semibold text-primary">Switch to Gas:</p>
+            <img class="w-12" src="/assets/icons/gas.svg" alt="gas" />
+          </div>
+        </div>
+        <div class="flex flex-col gap-6 w-full md:w-3/5 rounded-xl bg-white p-6">
+          <h4 class="text-xl font-semibold">CO2 Emissions</h4>
+          <div>
+            <canvas id="co2EmissionsChart" class="w-full"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col md:flex-row justify-between gap-4 lg:gap-20 mt-10">
+        <div class="flex flex-col gap-10 w-full md:w-3/5">
+          <div class="bg-white p-6 rounded-2xl shadow-md">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+              2023 vs 2024
+            </h2>
+            <table class="w-full border-collapse">
+              <thead>
+                <tr class="text-gray-500 text-left text-sm">
+                  <th class="pb-2 font-normal">#</th>
+                  <th class="pb-2 font-normal">Name</th>
+                  <th class="pb-2 font-normal">Increase / Decrease</th>
+                  <th class="pb-2 font-normal">Change %</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-t">
+                  <td class="py-3">
+                    <img
+                      src="/assets/icons/electric.svg"
+                      alt="Electric Icon"
+                      class="h-5 w-5"
+                    />
+                  </td>
+                  <td>
+                    <p>Electric</p>
+                  </td>
+                  <td class="flex items-center gap-2 py-3">
+                    Decrease
+                    <span
+                      ><img src="/assets/icons/arrow-dec-gas.svg" alt="arrow"
+                    /></span>
+                  </td>
+                  <td>
+                    <span
+                      class="bg-accent/10 text-accent border border-accent px-2 py-px rounded-lg text-sm"
+                      >-26%</span
+                    >
+                  </td>
+                </tr>
+                <tr class="border-t">
+                  <td class="py-3">
+                    <img
+                      src="/assets/icons/gas.svg"
+                      alt="Gas Icon"
+                      class="h-5 w-5"
+                    />
+                  </td>
+                  <td>
+                    <p>Gas</p>
+                  </td>
+                  <td class="flex items-center gap-2 py-3">
+                    Increase
+                    <span
+                      ><img
+                        src="/assets/icons/arrow-inc-electric.svg"
+                        alt="arrow"
+                    /></span>
+                  </td>
+                  <td>
+                    <span
+                      class="bg-primary/10 text-primary border border-primary px-2 py-px rounded-lg text-sm"
+                      >-26%</span
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="bg-white p-6 rounded-2xl shadow-md">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+              Leaderboard Points
+            </h2>
+            <div class="flex gap-4 mb-4 text-xl">
+              <p>Current Points:</p>
+              <p class="font-semibold">125</p>
+            </div>
+            <div class="flex gap-4 text-xl">
+              <p>Position:</p>
+              <p class="font-semibold">4</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-md w-full md:w-2/5 text-center">
+          <h2 class="text-xl font-semibold text-gray-900">Eco Rating</h2>
+          <canvas id="gaugeChart" class="mt-4 mx-auto !w-60 !h-60"></canvas>
+          <div class="-mt-40">
+            <h3 id="gaugeValue" class="text-3xl font-bold mt-4">68</h3>
+            <p class="text-gray-600">Grade - B</p>
+            <p class="text-gray-500 mt-4 w-full sm:w-2/3 mx-auto">
+              Your Eco Rating for this month is: Good - Keep it up and follow
+              recommendations to further increase your rating in next month's
+              review!
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-md mt-20">
+        <h4 class="font-semibold text-xl">Weekly Recommendations</h4>
+        <h5 class="text-md text-neutral-600 mt-2">Recommendations summary</h5>
+        <div class="flex mt-10 gap-8 flex-wrap">
+          <div class="bg-secondary p-4 rounded-xl w-80">
+            <img class="py-6" src="/assets/icons/gas.svg" alt="gas" />
+            <h4 class="text-2xl font-semibold">
+              Weekend gas usage has increased
+            </h4>
+            <p class="mt-2">
+              Last weekend 3,200 kWh of gas was used costing £95. Switch off the
+              heating at the weekend to save energy!
+            </p>
+          </div>
+          <div class="bg-secondary p-4 rounded-xl w-80">
+            <img class="py-6" src="/assets/icons/gas.svg" alt="gas" />
+            <h4 class="text-2xl font-semibold">
+              Weekend gas usage has increased
+            </h4>
+            <p class="mt-2">
+              Last weekend 3,200 kWh of gas was used costing £95. Switch off the
+              heating at the weekend to save energy!
+            </p>
+          </div>
+          <div class="bg-secondary p-4 rounded-xl w-80">
+            <img class="py-6" src="/assets/icons/gas.svg" alt="gas" />
+            <h4 class="text-2xl font-semibold">
+              Weekend gas usage has increased
+            </h4>
+            <p class="mt-2">
+              Last weekend 3,200 kWh of gas was used costing £95. Switch off the
+              heating at the weekend to save energy!
+            </p>
+          </div>
+          <div class="bg-secondary p-4 rounded-xl w-80">
+            <img class="py-6" src="/assets/icons/gas.svg" alt="gas" />
+            <h4 class="text-2xl font-semibold">
+              Weekend gas usage has increased
+            </h4>
+            <p class="mt-2">
+              Last weekend 3,200 kWh of gas was used costing £95. Switch off the
+              heating at the weekend to save energy!
+            </p>
+          </div>
+          <div class="bg-secondary p-4 rounded-xl w-80">
+            <img class="py-6" src="/assets/icons/gas.svg" alt="gas" />
+            <h4 class="text-2xl font-semibold">
+              Weekend gas usage has increased
+            </h4>
+            <p class="mt-2">
+              Last weekend 3,200 kWh of gas was used costing £95. Switch off the
+              heating at the weekend to save energy!
+            </p>
+          </div>
+          <div class="bg-secondary p-4 rounded-xl w-80">
+            <img class="py-6" src="/assets/icons/gas.svg" alt="gas" />
+            <h4 class="text-2xl font-semibold">
+              Weekend gas usage has increased
+            </h4>
+            <p class="mt-2">
+              Last weekend 3,200 kWh of gas was used costing £95. Switch off the
+              heating at the weekend to save energy!
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-md mt-20">
+        <h4 class="font-semibold text-xl">Long Term Recommendations</h4>
+        <h5 class="text-md text-neutral-600 mt-2">Recommendations summary</h5>
+        <div class="flex mt-10 gap-8 flex-wrap">
+          <div class="bg-secondary p-4 rounded-xl w-80">
+            <img class="py-6" src="/assets/icons/gas.svg" alt="gas" />
+            <h4 class="text-2xl font-semibold">
+              Weekend gas usage has increased
+            </h4>
+            <p class="mt-2">
+              Last weekend 3,200 kWh of gas was used costing £95. Switch off the
+              heating at the weekend to save energy!
+            </p>
+          </div>
+          <div class="bg-secondary p-4 rounded-xl w-80">
+            <img class="py-6" src="/assets/icons/gas.svg" alt="gas" />
+            <h4 class="text-2xl font-semibold">
+              Weekend gas usage has increased
+            </h4>
+            <p class="mt-2">
+              Last weekend 3,200 kWh of gas was used costing £95. Switch off the
+              heating at the weekend to save energy!
+            </p>
+          </div>
+          <div class="bg-secondary p-4 rounded-xl w-80">
+            <img class="py-6" src="/assets/icons/gas.svg" alt="gas" />
+            <h4 class="text-2xl font-semibold">
+              Weekend gas usage has increased
+            </h4>
+            <p class="mt-2">
+              Last weekend 3,200 kWh of gas was used costing £95. Switch off the
+              heating at the weekend to save energy!
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-lg mt-10">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Activities</h2>
+        <div class="space-y-3 sm:pl-12 pt-4 sm:pt-8">
+          <label class="flex items-center space-x-3">
+            <input type="checkbox" class="flex-shrink-0 h-5 w-5 border-gray-300 rounded" />
+            <span class="text-gray-700">Daily check-in</span>
+            <span class="ml-auto text-gray-500 max-sm:text-sm">- 5 points</span>
+          </label>
+
+          <label class="flex items-center space-x-3">
+            <input type="checkbox" class="flex-shrink-0 h-5 w-5 border-gray-300 rounded" />
+            <span class="text-gray-700"
+              >Review this week's recommendations</span
+            >
+            <span class="ml-auto text-gray-500 max-sm:text-sm">- 10 points</span>
+          </label>
+
+          <label class="flex items-center space-x-3">
+            <input type="checkbox" class="flex-shrink-0 h-5 w-5 border-gray-300 rounded" />
+            <span class="text-gray-700">Analyse your school's energy use</span>
+            <span class="ml-auto text-gray-500 max-sm:text-sm">- 10 points</span>
+          </label>
+
+          <div>
+            <label class="flex items-center space-x-3">
+              <input
+                type="checkbox"
+                class="flex-shrink-0 h-5 w-5 border-gray-300 rounded"
+                id="energyReductionCheckbox"
+              />
+              <span class="text-gray-700"
+                >Set energy reduction target for pupils and staff</span
+              >
+              <span class="ml-auto text-gray-500 max-sm:text-sm">- 10 points</span>
+            </label>
+            <input
+              type="text"
+              id="energyReductionInput"
+              class="w-full mt-2 p-2 border border-gray-300 rounded-lg bg-gray-100"
+              placeholder="Energy reduction target:"
+              disabled
+            />
+          </div>
+
+          <div>
+            <label class="flex items-center space-x-3">
+              <input
+                type="checkbox"
+                class="flex-shrink-0 h-5 w-5 border-gray-300 rounded"
+                id="energyCommitteeCheckbox"
+              />
+              <span class="text-gray-700">Set up energy committee</span>
+              <span class="ml-auto text-gray-500 max-sm:text-sm">- 10 points</span>
+            </label>
+            <input
+              type="text"
+              id="energyCommitteeInput"
+              class="w-full mt-2 p-2 border border-gray-300 rounded-lg bg-gray-100"
+              placeholder="Energy committee name:"
+              disabled
+            />
+          </div>
+
+          <label class="flex items-center space-x-3">
+            <input type="checkbox" class="flex-shrink-0 h-5 w-5 border-gray-300 rounded" />
+            <span class="text-gray-700"
+              >Claim points for electricity usage decrease</span
+            >
+            <span class="ml-auto text-gray-500 max-sm:text-sm">- 15 points</span>
+          </label>
+
+          <label class="flex items-center space-x-3">
+            <input type="checkbox" class="flex-shrink-0 h-5 w-5 border-gray-300 rounded" />
+            <span class="text-gray-700"
+              >Claim points for reaching an eco rating of B</span
+            >
+            <span class="ml-auto text-gray-500 max-sm:text-sm">- 30 points</span>
+          </label>
+
+          <label class="flex items-center space-x-3">
+            <input type="checkbox" class="flex-shrink-0 h-5 w-5 border-gray-300 rounded" />
+            <span class="text-gray-700">Reach an eco rating of A</span>
+            <span class="ml-auto text-gray-500 max-sm:text-sm">- 50 points</span>
+          </label>
+        </div>
+
+        <button
+          class="mt-6 w-full py-3 border border-black rounded-lg font-semibold hover:bg-gray-100"
+        >
+          UPDATE POINTS
+        </button>
+      </div>
+      <div
+        class="w-full bg-gradient-to-br from-secondary to-primary py-8 sm:py-20 mt-20 rounded-2xl"
+      >
+        <h2 class="font-black text-3xl md:text-5xl leading-tight text-center">
+          Check your progress on the <br />
+          leaderboard!
+        </h2>
+        <button
+          class="px-8 sm:px-16 py-4 sm:py-8 text-xl font-bold rounded-2xl mt-8 sm:mt-20 block mx-auto border-2 border-black"
+        >
+          VIEW LEADERBOARD
+        </button>
+      </div>
+    </main>
+    <footer class="bg-secondary py-12 px-8">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-8">
+        <h2 class="text-xl font-bold">ECOTRAIL</h2>
+        <div>
+          <h2 class="text-lg font-bold">ECOTRAIL</h2>
+          <ul class="mt-2 space-y-3 text-gray-700">
+            <li><a href="#" class="hover:underline">Home</a></li>
+            <li><a href="#" class="hover:underline">About us</a></li>
+            <li><a href="#" class="hover:underline">View schools</a></li>
+            <li><a href="#" class="hover:underline">Leaderboard</a></li>
+            <li>
+              <a href="#" class="hover:underline"
+                >Journey emissions calculator</a
+              >
+            </li>
+            <li>
+              Contact or
+              <a href="mailto:support@ecotrail.co.uk" class="hover:underline"
+                >support@ecotrail.co.uk</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- Middle Section -->
+        <div>
+          <h2 class="text-lg font-bold">Services</h2>
+          <ul class="mt-2 space-y-1 text-gray-700">
+            <li><a href="#" class="hover:underline">For schools</a></li>
+            <li><a href="#" class="hover:underline">For authorities</a></li>
+            <li><a href="#" class="hover:underline">Education workshops</a></li>
+            <li><a href="#" class="hover:underline">Funding advice</a></li>
+          </ul>
+        </div>
+
+        <!-- Right Section -->
+        <div>
+          <h2 class="text-lg font-bold">How it works?</h2>
+          <ul class="mt-2 space-y-1 text-gray-700">
+            <li><a href="#" class="hover:underline">Updates</a></li>
+            <li><a href="#" class="hover:underline">News</a></li>
+          </ul>
+
+          <!-- Newsletter Signup -->
+        </div>
+        <div>
+          <h2 class="text-lg font-bold">Join our newsletter</h2>
+          <form class="mt-2 flex flex-col space-y-2">
+            <input
+              type="email"
+              placeholder="Email address:"
+              class="w-full p-3 border rounded-lg bg-gray-100"
+            />
+            <button
+              type="submit"
+              class="w-full p-3 border border-black rounded-lg font-semibold hover:bg-gray-200"
+            >
+              SUBMIT
+            </button>
+          </form>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
