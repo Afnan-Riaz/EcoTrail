@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   document.querySelectorAll(".dropdown-toggle").forEach((item) => {
     item.addEventListener("click", () => {
-      if(item.nextElementSibling.classList.contains("max-h-0")) {
+      if (item.nextElementSibling.classList.contains("max-h-0")) {
         item.nextElementSibling.classList.remove("max-h-0");
         item.nextElementSibling.classList.add("max-h-fit");
       } else {
@@ -117,41 +117,94 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
   });
-  const ctx2 = document.getElementById("gaugeChart").getContext("2d");
-
-  const gaugeValue = 68; // Example rating out of 100
-  const maxValue = 100;
-
-  new Chart(ctx2, {
-    type: "doughnut",
-    data: {
-      datasets: [
+  console.log(JSC)
+  var chart = JSC.chart("gaugeChart", {
+    debug: true,
+    legend_visible: false,
+    defaultTooltip_enabled: false,
+    xAxis_spacingPercentage: 0.4,
+    yAxis: [
         {
-          data: [gaugeValue, maxValue - gaugeValue, maxValue],
-          backgroundColor: ["#4CAF50", "#EAEAEA", "transparent"],
-          borderWidth: 0,
-          circumference: 360,
-          rotation: 270,
+            id: "ax2",
+            scale_range: [0, 100],
+            defaultTick: {
+                padding: 10,
+                enabled: false,
+            },
+            customTicks: [0, 20, 40, 60, 80, 100],
+            line: {
+                width: 10,
+                color: "smartPalette:pal2",
+            },
+        }
+    ],
+    defaultSeries: {
+        type: "gauge column roundcaps",
+        shape: {
+            label: {
+                text: "%max",
+                align: "center",
+                verticalAlign: "middle",
+                style_fontSize: 28,
+            },
         },
-      ],
     },
-    options: {
-      responsive: true,
-      cutout: "80%",
-      plugins: {
-        legend: { display: false },
-      },
-    },
-  });
-  document
-    .getElementById("energyReductionCheckbox")
-    .addEventListener("change", function () {
-      document.getElementById("energyReductionInput").disabled = !this.checked;
-    });
+    series: [
+        {
+            yAxis: "ax2",
+            name: "Temperatures",
+            palette: {
+                id: "pal2",
+                pointValue: "{%yValue/100}",
+                colors: [
+                    "#ffffd9",
+                    "#edf8b0",
+                    "#c7e9b4",
+                    "#7fcdbb",
+                    "#41b6c3",
+                    "#1d91c0",
+                    "#225ea8",
+                    "#253494",
+                    "#081d58",
+                ],
+            },
+            points: [["x", 68]],
+        },
+    ],
+});
+  // const gaugeValue = 68; // Example rating out of 100
+  // const maxValue = 100;
 
-  document
-    .getElementById("energyCommitteeCheckbox")
-    .addEventListener("change", function () {
-      document.getElementById("energyCommitteeInput").disabled = !this.checked;
-    });
+  // new Chart(ctx2, {
+  //   type: "doughnut",
+  //   data: {
+  //     datasets: [
+  //       {
+  //         data: [gaugeValue, maxValue - gaugeValue, maxValue],
+  //         backgroundColor: ["#4CAF50", "#EAEAEA", "transparent"],
+  //         borderWidth: 0,
+  //         circumference: 360,
+  //         rotation: 270,
+  //       },
+  //     ],
+  //   },
+  //   options: {
+  //     responsive: true,
+  //     cutout: "80%",
+  //     plugins: {
+  //       legend: { display: false },
+  //     },
+  //   },
+  // });
+  // document
+  //   .getElementById("energyReductionCheckbox")
+  //   .addEventListener("change", function () {
+  //     document.getElementById("energyReductionInput").disabled = !this.checked;
+  //   });
+
+  // document
+  //   .getElementById("energyCommitteeCheckbox")
+  //   .addEventListener("change", function () {
+  //     document.getElementById("energyCommitteeInput").disabled = !this.checked;
+  //   });
 });
